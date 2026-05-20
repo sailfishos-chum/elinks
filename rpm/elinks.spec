@@ -1,4 +1,7 @@
 Name:           elinks
+
+%define __meson_auto_features disabled
+
 Version:        0.19.1
 Release:        1
 Summary:        ELinks is a program for browsing the web in text mode
@@ -14,11 +17,10 @@ BuildRequires:  pkgconfig(mozjs185)
 %description
 ELinks is a program for browsing the web in text mode.
 
-%package docs
-Summary: Elinks documentation package
-
-%description docs
-Documentation for Elinks - a program for browsing the web in text mode.
+%if 0%{?_chum}
+Type: console-application
+PackagedBy: llewelld
+%endif
 
 %prep
 %autosetup -n %{name}-%{version}/upstream
@@ -26,17 +28,32 @@ Documentation for Elinks - a program for browsing the web in text mode.
 %build
 %meson \
 -D256-colors=true \
+-D88-colors=true \
+-Dapidoc=false \
+-Dbacktrace=false \
+-Dbittorrent=false \
+-Dbrotli=false \
+-Ddoc=false \
+-Dgpm=false \
+-Dhtmldoc=false \
+-Dlibev=true \
+-Dnls=false \
+-Dpdfdoc=false \
+-Dterminfo=true \
+-Dtre=false \
 %{nil}
+
+#TODO:
+#libavif', type: 'boolean', value: false, description: 'support for AVIF images')
+#libwebp', type: 'boolean', value: false, description: 'support for WEBP images')
+
 %meson_build
 
 %install
 %meson_install
 
+rm -rf %{buildroot}%{_mandir}/*
+
 %files
 %{_bindir}/elinks
 %exclude %{_datadir}/locale/
-
-%files docs
-%{_datadir}/man/man1/*
-%{_datadir}/man/man5/*
-
