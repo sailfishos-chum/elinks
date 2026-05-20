@@ -9,10 +9,21 @@ Url:            http://elinks.or.cz/
 Source0:        %{name}-%{version}.tar.bz2
 License:        GPLv2
 BuildRequires:  meson
-BuildRequires:  gettext-devel
+BuildRequires:  pkgconfig(ncursesw)
+BuildRequires:  pkgconfig(tinfo)
 BuildRequires:  pkgconfig(nspr)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(mozjs185)
+BuildRequires:  pkgconfig(libcurl)
+# optional:
+BuildRequires:  cmake
+BuildRequires:  libev-devel
+BuildRequires:  libev-libevent-devel
+BuildRequires:  pkgconfig(libidn2)
+BuildRequires:  pkgconfig(libbrotlidec)
+BuildRequires:  pkgconfig(expat)
+
+
 
 %description
 ELinks is a program for browsing the web in text mode.
@@ -32,7 +43,9 @@ PackagedBy: llewelld
 -Dapidoc=false \
 -Dbacktrace=false \
 -Dbittorrent=false \
--Dbrotli=false \
+-Dbrotli=true \
+-Dcss=true \
+-Dlibcss=false \
 -Ddoc=false \
 -Dgpm=false \
 -Dhtmldoc=false \
