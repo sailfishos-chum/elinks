@@ -8,7 +8,7 @@ Summary:        ELinks is a program for browsing the web in text mode
 Url:            http://elinks.or.cz/
 Source0:        %{name}-%{version}.tar.bz2
 License:        GPLv2
-BuildRequires:  meson
+BuildRequires:  meson >= 0.56
 BuildRequires:  pkgconfig(ncursesw)
 BuildRequires:  pkgconfig(tinfo)
 BuildRequires:  pkgconfig(nspr)
@@ -37,6 +37,10 @@ PackagedBy: llewelld
 %autosetup -n %{name}-%{version}/upstream
 
 %build
+%if 0%{?sailfishos_version} < 40600
+sed -i 's/1.0.1/0.56.0/' meson.build
+%endif
+
 %meson \
 -D256-colors=true \
 -D88-colors=true \
