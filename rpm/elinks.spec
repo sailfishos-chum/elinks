@@ -5,7 +5,7 @@ Summary:        ELinks is a program for browsing the web in text mode
 Url:            http://elinks.or.cz/
 Source0:        %{name}-%{version}.tar.bz2
 License:        GPLv2
-BuildRequires:  autoconf
+BuildRequires:  meson
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig(nspr)
 BuildRequires:  pkgconfig(openssl)
@@ -24,20 +24,19 @@ Documentation for Elinks - a program for browsing the web in text mode.
 %autosetup -n %{name}-%{version}/upstream
 
 %build
-./autogen.sh
-%configure --enable-256-colors
-%make_build
+%meson \
+-D256-colors=true \
+%{nil}
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %files
-%defattr(-,root,root)
 %{_bindir}/elinks
 %exclude %{_datadir}/locale/
 
 %files docs
-%defattr(-,root,root)
 %{_datadir}/man/man1/*
 %{_datadir}/man/man5/*
 
