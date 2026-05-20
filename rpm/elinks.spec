@@ -1,5 +1,5 @@
 Name:           elinks
-Version:        0.12pre6
+Version:        0.19.1
 Release:        1
 Summary:        ELinks is a program for browsing the web in text mode
 Url:            http://elinks.or.cz/
